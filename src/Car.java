@@ -4,10 +4,10 @@ public class Car {
     private String name,description;
     private double price;
     private Image  image;
-    private Integer units;
+    private int units;
 
-    public Car(String name, String description, double price, Integer units) {
-        // setImage(image);
+    public Car(String name, String description, double price, Image image, int units) {
+         setImage(image);
          setName(name);
          setDescription(description);
          setPrice(price);

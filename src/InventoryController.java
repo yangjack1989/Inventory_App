@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
@@ -48,13 +49,13 @@ public class InventoryController implements Initializable {
     private TreeMap<String, LinkedList<Car>> inventory;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Car car1 = new Car("Honda Fit", "japan", 10000,  7);
-        Car car2 = new Car("Fiat 500", "Italy", 13000,  6);
-        Car car3 = new Car("Ferrari", "famous", 1000000,  3);
-        Car car4 = new Car("Audi R8", "nice", 800000,  3);
-        Car car5 = new Car("SUV Audi", "cool", 20000,  4);
-        Car car6 = new Car("Honda SUV", "cool", 20000,  4);
-        Car car7 = new Car("Hyundai Truck", "cool", 20000,  4);
+        Car car1 = new Car("Honda Fit", "japan", 10000,new Image("hondafit.jpg"), 7);
+        Car car2 = new Car("Fiat 500", "Italy", 13000,new Image("fiat500.jpg"),  6);
+        Car car3 = new Car("Ferrari", "famous", 1000000, new Image("ferrai.jpg"), 3);
+        Car car4 = new Car("Audi R8", "nice", 800000, new Image("audir8.jpg"), 3);
+        Car car5 = new Car("SUV Audi", "cool", 20000,new Image("suvaudi.png") , 4);
+        Car car6 = new Car("Honda SUV", "cool", 20000, new Image("hondasuv.jpg") , 4);
+        Car car7 = new Car("Hyundai Truck", "cool", 20000,new Image("hyundaitruck.jpg") ,  4);
 
 
         LinkedList<Car> suv = new LinkedList<>();
@@ -98,6 +99,7 @@ public class InventoryController implements Initializable {
 
 
     }
+    
     public void  comboBoxUpdated(){
         double valueCategory=totalValue(Inventory.carsPerCategorie(inventory,this.ConboxView.getValue()));
         this.cateogoryValueLabel.setText(Double.toString(valueCategory));
