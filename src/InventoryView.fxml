@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -24,7 +23,7 @@
             </HBox>
             <HBox>
                <children>
-                  <ComboBox fx:id="ConboxView" onAction="#comboBoxUpdated" prefWidth="150.0" promptText="Select Categorie" />
+                  <ComboBox fx:id="ConboxView" prefWidth="150.0" promptText="Select Categorie" />
                   <VBox>
                      <children>
                         <Label prefHeight="17.0" prefWidth="72.0" text=" Sort by " />

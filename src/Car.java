@@ -1,6 +1,6 @@
 import javafx.scene.image.Image;
 
-public class Car {
+public class Car implements Comparable<Car> {
     private String name,description;
     private double price;
     private Image  image;
@@ -77,4 +77,10 @@ public class Car {
     public String toString(){
         return String.format("car: %s   price: $%.2f   units: %d ",name,price,units);
     }
+
+    @Override
+    public int compareTo(Car car) {
+        return this.getName().compareToIgnoreCase(car.getName());
+    }
+
 }

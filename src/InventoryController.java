@@ -1,23 +1,22 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.Observable;
-import java.util.ResourceBundle;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class InventoryController implements Initializable {
     @FXML
-    private ListView<ObservableList<Car>> listView;
+    private ListView listView;
 
     @FXML
     private ImageView imageView;
@@ -47,6 +46,9 @@ public class InventoryController implements Initializable {
     private Label cateogoryValueLabel;
 
     private TreeMap<String, LinkedList<Car>> inventory;
+    private ObservableList<Car> carlist= FXCollections.observableArrayList();
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Car car1 = new Car("Honda Fit", "japan", 10000,new Image("hondafit.jpg"), 7);
@@ -69,28 +71,80 @@ public class InventoryController implements Initializable {
         truck.add(car7);
         economy.add(car1);
         economy.add(car2);
-        inventory = new TreeMap<String, LinkedList<Car>>();
+        inventory = new TreeMap<>();
         inventory.put("SUV", suv);
         inventory.put("Sporty", sporty);
         inventory.put("Truck", truck);
         inventory.put("Economy", economy);
+
         //load all categories
         this.ConboxView.setItems(Inventory.allCategories(inventory));
 
         // show all cars
-        for(String k:inventory.keySet()) {
-            this.listView.getItems().addAll(Inventory.allCars(inventory, k));
+        carlist.addAll(Inventory.allCars(inventory));
+
+        //sort
+        Collections.sort(carlist);
+        //Collections.sort(carlist,(c1,c2)->(c1.getPrice()>c2.getPrice()?1:-1));
+
+        listView.setItems(carlist);
+        //load selected images
+        listView.getSelectionModel().selectFirst();
+        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Car>(){
+            @Override
+            public void changed(ObservableValue<? extends Car> observable, Car oldValue, Car newValue) {
+                imageView.setImage(newValue.getImage());
+            }
+
         }
+        );
         //load all  prices
         double prices=0;
-        for(String k:inventory.keySet()) {
-             prices+=totalValue(Inventory.allCars(inventory, k));
-        }
+        prices+=totalValue(Inventory.allCars(inventory));
+        this.InventoryValueLabel.setText("$"+Double.toString(prices));
 
-
-        this.InventoryValueLabel.setText(Double.toString(prices));
-        //set defalut value
+        //set default value
         this.cateogoryValueLabel.setText("N/A");
+        ObservableList<Car> selectedCategoryCarList= FXCollections.observableArrayList();
+
+        // combo box changed
+        this.ConboxView.valueProperty().addListener((arg, oldVal, newVal)->{
+                selectedCategoryCarList.clear();
+                selectedCategoryCarList.addAll(Inventory.carsPerCategorie(inventory,newVal));
+                listView.setItems(selectedCategoryCarList);
+                double valueCategory=totalValue(Inventory.carsPerCategorie(inventory,ConboxView.getValue()));
+                cateogoryValueLabel.setText("$"+Double.toString(valueCategory));
+            }
+        );
+        // toggle group radio button
+        ToggleGroup group = new ToggleGroup();
+        this.aZRadioButton.setToggleGroup(group);
+        this.aZRadioButton.setOnAction(event -> Collections.sort(listView.getItems()));
+        this.aZRadioButton.setSelected(true);
+        this.ZaRadioButton.setToggleGroup(group);
+        this.ZaRadioButton.setOnAction(event -> Collections.reverse(listView.getItems()));
+        this.highLowRadioButton.setToggleGroup(group);
+        this.highLowRadioButton.setOnAction(event -> Collections.sort(selectedCategoryCarList,(a,b)->{
+              if(a.getPrice()>b.getPrice())
+                  return -1;
+              else
+                  return 1;
+        }));
+        this.lowHighRadioButton.setToggleGroup(group);
+        this.lowHighRadioButton.setOnAction(event -> Collections.sort(selectedCategoryCarList,(a,b)->{
+            if(a.getPrice()>b.getPrice())
+                return 1;
+            else
+                return -1;
+        }));
+
+        this.selectButton.setOnAction (new EventHandler<ActionEvent>(){
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("hello");
+            }
+        });
 
 
 
@@ -99,22 +153,12 @@ public class InventoryController implements Initializable {
 
 
     }
-    
-    public void  comboBoxUpdated(){
-        double valueCategory=totalValue(Inventory.carsPerCategorie(inventory,this.ConboxView.getValue()));
-        this.cateogoryValueLabel.setText(Double.toString(valueCategory));
 
 
-    }
-    public static  double totalCarsValue(TreeMap<String,LinkedList<Car>> treeMap , String k){
-          double totalValue=0;
-          for(Car car : treeMap.get(k)){
-              totalValue+=car.getPrice()*car.getUnits();
 
-          }
-          return totalValue;
-    }
-    public static double totalValue(ObservableList<Car> cars){
+
+
+    public static double totalValue(LinkedList<Car> cars){
         double totalValue=0;
         for(Car car : cars){
             totalValue+=car.getPrice()*car.getUnits();
