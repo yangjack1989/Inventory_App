@@ -5,13 +5,16 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 public class Inventory {
+
+     TreeMap<String, LinkedList<Car>> inventoryCar = new TreeMap<>();
+
     /**
-     *  This method return a observable list that contains all categories of cars in inventory
+     *  This method passes in a TreeMap and returns a  list of car categories in the inventory
       * @param inventory
      * @return
      */
-    public static ObservableList<String> allCategories(TreeMap<String,LinkedList<Car>> inventory ) {
-        ObservableList<String> categories= FXCollections.observableArrayList();
+    public LinkedList<String> allCategories(TreeMap<String,LinkedList<Car>> inventory ) {
+        LinkedList<String> categories= new LinkedList<>();
         for (String category : inventory.keySet()) {
             System.out.println("keys: " + category);
             categories.add(category);
@@ -20,12 +23,12 @@ public class Inventory {
     }
 
     /**
-     * This method retunn a linkedlist that contains all cars objects
+     * This method return a Linkedlist that contains all cars objects
      * @param inventory
      * @return
      */
 
-    public  static  LinkedList<Car> allCars(TreeMap<String,LinkedList<Car>> inventory ){
+    public LinkedList<Car> allCars(TreeMap<String,LinkedList<Car>> inventory ){
         LinkedList<Car> cars= new LinkedList<>();
         for (String category : inventory.keySet()){
             cars.addAll(inventory.get(category));
@@ -34,13 +37,13 @@ public class Inventory {
     }
 
     /**
-     * This method return a linkedlist contains car objects based on which category has passed in
+     * This method return a linkedlist contains car objects based on which category is passed
      * @param inventory
-     * @param k
+     * @param category
      * @return
      */
 
-    public static  LinkedList<Car> carsPerCategorie(TreeMap<String,LinkedList<Car>> inventory , String category){
+    public  LinkedList<Car> carsPerCategorie(TreeMap<String,LinkedList<Car>> inventory , String category){
         LinkedList<Car> cars= new LinkedList<>();
         for (Car car: inventory.get(category)){
             System.out.println("SELECTED:"+car);
@@ -50,17 +53,17 @@ public class Inventory {
     }
 
     /**
-     * this method  receives a TreeMap data ,category string  , car object then add new car object into specific
+     * This method  receives a TreeMap data ,category string  , car object then add new car object into specific
      * category car list in inventory.
      *
-     * @param treeMap
+     * @param inventory
      * @param car
-     * @param k
+     * @param category
      */
 
-    public static  void addCar(TreeMap<String,LinkedList<Car>> treeMap , Car car,String category){
+    public void addCar(TreeMap<String,LinkedList<Car>> inventory , Car car,String category){
       LinkedList<Car> cars=new LinkedList<>();
-        for(Car c:treeMap.get(category)){
+        for(Car c:inventory.get(category)){
             cars.add(c);
             System.out.println("old list:"+c);
         }
@@ -69,6 +72,8 @@ public class Inventory {
             System.out.println("NEW list:"+c);
         }
     }
+
+
 
 
 }

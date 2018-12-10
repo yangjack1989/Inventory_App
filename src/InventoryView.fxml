@@ -17,34 +17,66 @@
          <children>
             <HBox>
                <children>
-                  <ListView fx:id="listView" prefHeight="244.0" prefWidth="300.0" />
-                  <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ListView fx:id="listView" prefHeight="168.0" prefWidth="273.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></ListView>
+                  <ImageView fx:id="imageView" fitHeight="205.0" fitWidth="268.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <HBox>
+            <HBox prefHeight="86.0" prefWidth="600.0">
                <children>
-                  <ComboBox fx:id="ConboxView" prefWidth="150.0" promptText="Select Categorie" />
+                  <ComboBox fx:id="ConboxView" prefWidth="150.0" promptText="Select Categorie">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></ComboBox>
                   <VBox>
                      <children>
                         <Label prefHeight="17.0" prefWidth="72.0" text=" Sort by " />
                         <RadioButton fx:id="highLowRadioButton" mnemonicParsing="false" text="Price high to low" />
-                        <RadioButton fx:id="lowHighRadioButton" mnemonicParsing="false" text="Price low to high" />
+                        <RadioButton fx:id="lowHighRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="176.0" text="Price low to high" />
                         <RadioButton fx:id="aZRadioButton" mnemonicParsing="false" text=" Fron A to Z" />
                         <RadioButton fx:id="ZaRadioButton" mnemonicParsing="false" text="From Z to A" />
                      </children>
-                  </VBox>
-                  <Button fx:id="selectButton" contentDisplay="CENTER" mnemonicParsing="false" text="Button">
                      <HBox.margin>
-                        <Insets left="170.0" top="30.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
-                  </Button>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="86.0" prefWidth="308.0">
+                     <children>
+                        <Button fx:id="selectButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text=" Sell 1 Unit" />
+                        <Label fx:id="messageLabel" prefHeight="43.0" prefWidth="294.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </VBox>
                </children>
             </HBox>
-            <Label text="Total inventory value" />
-            <Label fx:id="InventoryValueLabel" prefHeight="17.0" prefWidth="156.0" text="Label" />
-            <Label text="Total cateogory value" />
-            <Label fx:id="cateogoryValueLabel" prefHeight="17.0" prefWidth="157.0" text="Label" />
+            <HBox>
+               <children>
+                  <Label text="Total inventory value">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="InventoryValueLabel" prefHeight="17.0" prefWidth="156.0" text="Label" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="Total cateogory value">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="cateogoryValueLabel" prefHeight="17.0" prefWidth="157.0" text="Label" />
+               </children>
+            </HBox>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="29.0" top="20.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>
