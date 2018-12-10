@@ -26,7 +26,7 @@
             </HBox>
             <HBox prefHeight="86.0" prefWidth="600.0">
                <children>
-                  <ComboBox fx:id="ConboxView" prefWidth="150.0" promptText="Select Categorie">
+                  <ComboBox fx:id="ConboxView" prefHeight="25.0" prefWidth="205.0" promptText="Select Categorie">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin></ComboBox>
