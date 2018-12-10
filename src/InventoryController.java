@@ -129,10 +129,10 @@ public class InventoryController implements Initializable {
         }));
 
         //load all  prices
-        double prices = 0;
-        prices+=totalValue(listView.getItems());
-        this.InventoryValueLabel.setText("$" + Double.toString(prices));
-
+        double allPrices = listView.getItems().stream()
+                .mapToDouble(car -> car.getPrice()*car.getUnits())
+                .sum();
+        this.InventoryValueLabel.setText("$" + Double.toString(allPrices));
         //set default value
         this.cateogoryValueLabel.setText("N/A");
 
@@ -144,7 +144,9 @@ public class InventoryController implements Initializable {
                     selectedCategoryCarList.addAll(inventory.carsPerCategorie(inventory.inventoryCar, newVal));
                     listView.setItems(selectedCategoryCarList);
                     listView.getSelectionModel().select(0);
-                    double valueCategory = totalValue(listView.getItems());
+                    double valueCategory=listView.getItems().stream()
+                                                             .mapToDouble(car -> car.getPrice()*car.getUnits())
+                                                              .sum();
 
                     cateogoryValueLabel.setText("$" + Double.toString(valueCategory));
 
@@ -204,22 +206,6 @@ public class InventoryController implements Initializable {
 
     }
 
-
-    /**
-     * This method calculate the car list total value return the total value as a double
-     * @param cars
-     * @return
-     */
-
-    public  double totalValue(ObservableList<Car> cars) {
-        double totalValue = 0;
-        for (Car car : cars) {
-            totalValue += car.getPrice() * car.getUnits();
-
-        }
-        return totalValue;
-
-    }
 
     /**
      * This method sort on alphabetic order
