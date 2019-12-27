@@ -72,7 +72,7 @@ public class InventoryController implements Initializable {
         Car car7 = new Car("Hyundai Truck", "cool", 20000, new Image("hyundaitruck.jpg"), 4);
         Car car8 = new Car("Toyota Fuel", "cool", 12000, new Image("Toyotafuel.jpg"), 5);
         Car car9 = new Car("Lamborghini", "cool", 900000, new Image("lamborghini.jpg"), 2);
-
+        // create a linklist car
         LinkedList<Car> suv = new LinkedList<>();
         LinkedList<Car> sporty = new LinkedList<>();
         LinkedList<Car> truck = new LinkedList<>();
